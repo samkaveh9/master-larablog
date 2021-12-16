@@ -1,0 +1,7 @@
+{
+    "Post": true,
+    "Common": true,
+    "Author": true,
+    "Comment": true,
+    "User": true
+}
