@@ -4,6 +4,7 @@ namespace Modules\Post\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Gate;
 
 class PostServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,11 @@ class PostServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
+        Gate::define('update-post', function($user, $post){
+            return $user->id == $post->user_id;
+        });
+
     }
 
     /**

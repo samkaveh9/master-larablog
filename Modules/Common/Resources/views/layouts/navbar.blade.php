@@ -36,12 +36,16 @@
         </ul>
         @else
         <ul class="navbar-nav d-flex">
-          <li class="nav-item text-light mt-2">
-            <span>Welcome </span><strong class="" >{{ auth()->user()->name }}!</strong>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Dashboard</a>
+          <li class="nav-item dropdown" style="margin-right: 1rem">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Welcome <strong class="">{{ auth()->user()->name }}!</strong>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Dashboard</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{{ route('signout') }}">Signout</a></li>
+            </ul>
           </li>
         </ul>    
         @endguest

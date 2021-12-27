@@ -9,36 +9,31 @@
 
 <div class="row">
     <div class="col-8 mt-3">
-        <div class="">
-            <div class="card shadow">
-                <img src="{{ asset('default.jpg') }}" class="card-img-top" alt="" style="height: 240px">
-              <div class="card-body">
-                <h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing.</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary" style="float: right">Read more</a>
-              </div>
+        @foreach ($posts as $post)
+        <div class="my-3">
+          <div class="card shadow">
+              <img src="{{ asset('default.jpg') }}" class="card-img-top" alt="" style="height: 240px">
+            <div class="card-body">
+              <h5 class="card-title">{{ $post->title }}</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary" style="float: right">Read more</a>
             </div>
+          </div>
         </div>
+        @endforeach
     </div>
     <div class="col-4 mt-4">
+        <div class="card-header">
+          <h5 class="card-text">{{ __('content.rightSidebarTitles') }}</h5>
+        </div>
         <div class="card" style="">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">An item</li>
-              <li class="list-group-item">A second item</li>
-              <li class="list-group-item">A third item</li>
-            </ul>
+          <ul class="list-group list-group-flush">
+            @foreach ($postsTitle as $post)
+            <li class="list-group-item">{{ $post->title }}</li>
+            @endforeach
+          </ul>
         </div>
     </div>
 </div>
 
 @endsection
-
-
-@push('scripts')
-    <script>
-        $('#bologna-list a').on('click', function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-    </script>
-@endpush

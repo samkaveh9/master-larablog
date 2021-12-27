@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/test', function () {
+    
+    // $date = Carbon::parse(now())->make(config(''))->locale(config('app.locale'))->diffForHumans();
+   
+
+    // $date = Carbon::parse('2018-06-15 12:34:00', 'UTC')->make('UTC')->locale(config('app.locale'));
+    $date = Carbon::parse(now(), 'UTC')->make('UTC')->locale(config('app.locale'))->isoFormat('lll');
+    $date2 = Carbon::parse(now(), 'UTC')->make('UTC')->locale(config('app.locale'))->isoFormat('LL');
+    
+    echo $date. '<br>'; 
+
+    echo $date2; 
+});
 
 // Auth::routes();
 

@@ -4,6 +4,7 @@ namespace Modules\Common\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Common\Http\ViewComposers\AllPostsComposer;
 
 class CommonServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,8 @@ class CommonServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
+        view()->composer('common::home', AllPostsComposer::class);
     }
 
     /**

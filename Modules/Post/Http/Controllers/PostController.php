@@ -5,8 +5,12 @@ namespace Modules\Post\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Modules\Post\Http\Requests\PostRequest;
+use Modules\Post\Mail\SendMailToUserAfterSubmitPostForm;
 use Modules\Post\Models\Post;
+use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
 {
@@ -16,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->get();
+        $posts = Post::where('user_id', auth()->id())->latest()->get();
         return view('post::index', compact('posts'));
     }
 
@@ -31,12 +35,15 @@ class PostController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     * @param Modules\Post\Http\Requests\PostRequest $request
      * @return Renderable
      */
     public function store(PostRequest $request)
-    {
-        Post::create(array_merge($request->validated(),['user_id' => auth()->id()]));
+    {        
+       $post = Post::create(array_merge($request->validated(),['user_id' => auth()->id()]));
+
+       Mail::to(auth()->user())->send(new SendMailToUserAfterSubmitPostForm($post));
+
         return redirect()
         ->route('posts.index')
         ->with('success', 'The post has been saved');
@@ -58,8 +65,17 @@ class PostController extends Controller
      * @return Renderable
      */
     public function edit(Post $post)
-    {
-        return view('post::edit', compact('post'));
+    {   
+        // if (Gate::forUser(auth()->user())->denies('update-post', $post)) {
+        //     abort(Response::HTTP_FORBIDDEN, 'You can\'t edit this post :(');
+        // }
+        
+        // Gate::authorize('update-post',$post);
+
+
+
+
+        return view('post::update', compact('post'));
     }
 
     /**

@@ -19,7 +19,7 @@ class LoginController extends Controller
     {   
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')
+            return redirect()->intended('/')
                         ->withSuccess('Signed in');
         }
   
@@ -30,7 +30,7 @@ class LoginController extends Controller
         Session::flush();
         Auth::logout();
   
-        return redirect('login');
+        return redirect(route('home'));
     }
 
 }

@@ -22,7 +22,6 @@
             </div>
         </div>
 
-
         {{-- Laravel Mix - JS File --}}
         <script src="{{ mix('js/app.js') }}"></script>
         @stack('scripts')

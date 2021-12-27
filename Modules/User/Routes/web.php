@@ -12,6 +12,6 @@ Route::group([],function() {
     Route::post('signin', [LoginController::class, 'signin'])->name('signin'); 
     Route::get('signup', [RegisterController::class, 'signupView'])->name('signup.view');
     Route::post('signup', [RegisterController::class, 'signup'])->name('signup'); 
-    Route::post('signout', [LoginController::class, 'signOut'])->name('signout');
+    Route::get('signout', [LoginController::class, 'signOut'])->name('signout');
 
 });

@@ -2,14 +2,14 @@
 @extends('common::layouts.master')
 
 @section('content')
-    
+
 <form class="form" action="{{ route('posts.store') }}" method="POST">
     @csrf 
     <div class="col-8 mx-auto pt-3">
         <h4>Add Post</h4>
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" name="title" value="" placeholder="">
+            <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title ?? null) }}" placeholder="">
             @error('title')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
@@ -27,8 +27,5 @@
         </div>
     </div>
 </form>
-
-
-
 
 @endsection
